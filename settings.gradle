@@ -1,1 +1,3 @@
 rootProject.name = 'Hangouts'
+
+include ':domain', ':application', ':infrastructure', ':web'
