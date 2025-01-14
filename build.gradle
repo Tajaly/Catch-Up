@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.1'
     id 'io.spring.dependency-management' version '1.1.7'
+    id("org.flywaydb.flyway") version "11.1.1"
 }
 
 dependencies {
@@ -28,7 +29,7 @@ dependencies {
 
 
     //implementation 'org.springframework.modulith:spring-modulith-starter-core'        modulith
-    //developmentOnly 'org.springframework.boot:spring-boot-docker-compose'             docker
+ //   developmentOnly 'org.springframework.boot:spring-boot-docker-compose'             docker
     //testImplementation 'org.springframework.modulith:spring-modulith-starter-test'    modulith tests
 }
 
@@ -50,6 +51,13 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+flyway {
+    driver = 'org.postgresql.Driver'
+    url = 'jdbc:postgresql://localhost:5432/hangouts'
+    user = 'user'
+    password = 'pw'
+}
+flywayMigrate.dependsOn classes
 
 /*
 ext {
