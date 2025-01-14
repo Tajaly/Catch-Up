@@ -31,6 +31,11 @@ dependencies {
     //implementation 'org.springframework.modulith:spring-modulith-starter-core'        modulith
  //   developmentOnly 'org.springframework.boot:spring-boot-docker-compose'             docker
     //testImplementation 'org.springframework.modulith:spring-modulith-starter-test'    modulith tests
+
+    //testcontainers
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:postgresql'
 }
 
 
