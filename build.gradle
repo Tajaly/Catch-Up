@@ -9,6 +9,24 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+    implementation 'jakarta.validation:jakarta.validation-api:3.1.0'
+
+    //flyway
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+
+    //Spring data
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jdbc
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:3.4.1'
+
+    //postgres treiber
+//https://mvnrepository.com/artifact/org.postgresql/postgresql
+    runtimeOnly 'org.postgresql:postgresql:42.7.4'
+
+
+
+
     //implementation 'org.springframework.modulith:spring-modulith-starter-core'        modulith
     //developmentOnly 'org.springframework.boot:spring-boot-docker-compose'             docker
     //testImplementation 'org.springframework.modulith:spring-modulith-starter-test'    modulith tests
