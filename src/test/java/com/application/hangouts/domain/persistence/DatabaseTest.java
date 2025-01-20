@@ -1,9 +1,11 @@
 package com.application.hangouts.domain.persistence;
 
-import com.application.hangouts.domain.model.Person;
-import com.application.hangouts.domain.persistence.spring.data.CircleRepository;
-import com.application.hangouts.domain.persistence.spring.data.SpringDataPersonRepository;
-import com.application.hangouts.web.ContainerConfig;
+import com.application.hangouts.logic.domain.model.Person;
+import com.application.hangouts.persistence.PersonRepositoryImpl;
+import com.application.hangouts.persistence.spring.data.SpringDataPersonRepository;
+import com.application.hangouts.logic.domain.services.PersonRepository;
+import com.application.hangouts.presentation.ContainerConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,17 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Import(ContainerConfig.class)
 public class DatabaseTest {
 
+    //weil wir im Service das PersonRepository nutzen:
     @Autowired
-    CircleRepository circleRepository;
+    SpringDataPersonRepository springPersonRepository;
 
-    @Autowired
-    SpringDataPersonRepository personRepository;
+    PersonRepository personRepository;
+
+    @BeforeEach
+    void setUp() {
+        personRepository = new PersonRepositoryImpl(springPersonRepository);
+    }
+
     /*
     @Test
     @DisplayName("Circle kann gespeichert und geladen werden")
@@ -37,7 +45,6 @@ public class DatabaseTest {
      */
 
 
-//Wenn
     @Test
     @DisplayName("Person kann gespeichert und geladen werden")
     void test1() throws Exception {

@@ -1,5 +1,5 @@
 import com.application.hangouts.HangoutsApplication;
-import com.application.hangouts.web.ContainerConfig;
+import com.application.hangouts.presentation.ContainerConfig;
 import org.springframework.boot.SpringApplication;
 
 /**
