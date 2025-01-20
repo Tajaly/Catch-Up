@@ -16,7 +16,11 @@ public class PersonService {
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
-    public Optional<Person> findPersonByName(String name) {
-        return personRepository.findPersonByName(name);
+
+    /*
+    public Optional<Person> findPersonByEmail(String email) {
+        return personRepository.findPersonByEmail(email);
     };
+
+     */
 }

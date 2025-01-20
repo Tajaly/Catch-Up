@@ -8,42 +8,49 @@ import org.springframework.data.relational.core.mapping.Column;
 
 public class Person {
 
-
-
-
-    //@Id
-    private Integer id;
-
+    private String email;
 
     private String name;
 
+    private String bio;
 
-   // @PersistenceCreator
-    public Person(String name, Integer id) {
+    public Person(String email, String name, String bio) {
+        this.email = email;
         this.name = name;
-        this.id = id;
+        this.bio = bio;
     }
 
-
-    public Person(String name) {
+    public Person(String email, String name) {
+        this.email = email;
         this.name = name;
-        this.id = null;
+        this.bio = null;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getName() {
         return this.name;
     }
 
+
+
     @Override
     public String toString() {
-        return "User: " + this.id + " " + this.name;
+        return "Person: " + this.name + " email:" + this.email + " bio: " +this.bio;
     }
 
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }

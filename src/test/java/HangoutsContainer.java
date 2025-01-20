@@ -1,9 +1,10 @@
 import com.application.hangouts.HangoutsApplication;
-import com.application.hangouts.presentation.ContainerConfig;
+import com.application.hangouts.ContainerConfig;
 import org.springframework.boot.SpringApplication;
 
 /**
  * Just for testing
+ *
  */
 public class HangoutsContainer {
 

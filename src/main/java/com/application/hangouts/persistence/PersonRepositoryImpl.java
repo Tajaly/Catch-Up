@@ -6,42 +6,48 @@ import com.application.hangouts.persistence.spring.data.SpringDataPersonReposito
 import com.application.hangouts.logic.domain.services.PersonRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class PersonRepositoryImpl implements PersonRepository {
-    private SpringDataPersonRepository springDataPersonRepository;
+    private final SpringDataPersonRepository springDataPersonRepository;
 
-    //TODO findAll implementieren
 
     //Constructor injection
+
     public PersonRepositoryImpl(SpringDataPersonRepository springDataPersonRepository) {
         this.springDataPersonRepository = springDataPersonRepository;
     }
 
-    public Optional<Person> findPersonByName(String name) {
-        return springDataPersonRepository.findPersonByName(name).map(this::toPerson);
+    public List<Person> findAll(){
+        return springDataPersonRepository.findAll().stream().map(this::toPerson).collect(Collectors.toList());
+    }
+
+    public Optional<Person> findPersonByEmail(String email) {
+        return springDataPersonRepository.findPersonByEmail(email).map(this::toPerson);
     }
 
     @Override
-    public  Person save(Person person) {
+    public Integer saveNewPerson(Person person) {
         PersonDto personDto = toPersonDto(person);
-        PersonDto savedPerson = springDataPersonRepository.save(personDto);
-        return toPerson(savedPerson);
+        springDataPersonRepository.saveNewPerson(personDto.getEmail(), personDto.getName(), personDto.getBio());
+        return 1;
     }
 
     @Override
-    public void deletePersonByName(String name) {
-        springDataPersonRepository.deletePersonByName(name);
+    public void deleteByEmail(String email) {
+        springDataPersonRepository.deleteByEmail(email);
     }
 
 
     // Dto to domain
     private PersonDto toPersonDto(Person person) {
-        return new PersonDto(person.getId(), person.getName());
+        return new PersonDto(person.getEmail(), person.getName(), person.getBio());
     }
 
     private Person toPerson (PersonDto personDto) {
-        return new Person( personDto.name(), personDto.id() );
+        return new Person(personDto.getEmail(), personDto.getName(), personDto.getBio());
     }
 }
