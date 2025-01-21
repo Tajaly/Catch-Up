@@ -17,6 +17,10 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
+    public void addMemberToCircle(Integer id, String email){
+        personRepository.addMemberToCircle(id, email);
+    }
+
     /*
     public Optional<Person> findPersonByEmail(String email) {
         return personRepository.findPersonByEmail(email);

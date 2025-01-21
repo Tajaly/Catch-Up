@@ -98,8 +98,9 @@ public class DatabaseTest {
     @Test
     @DisplayName("Circle können gespeichert und geladen werden")
     void test4() throws Exception {
-        Set<Person> members = new HashSet<>();
-        Circle circle = new Circle("Handball", "abc@abc.abc", members );
+        Person person = new Person("abc@abc.abc", "taja", "hallo");
+        Integer n = personRepository.saveNewPerson(person);
+        Circle circle = new Circle("Handball", "abc@abc.abc" );
         Circle saved = circleRepository.save(circle);
         assertThat(saved).isNotNull();
         System.out.println("\n \n \n \n" + saved + "\n\n\n\n");

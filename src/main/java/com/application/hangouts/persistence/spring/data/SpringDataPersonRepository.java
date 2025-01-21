@@ -33,8 +33,22 @@ public interface SpringDataPersonRepository extends CrudRepository<PersonDto, St
     void deleteByEmail(@Param("email") String email);
 
     @Modifying
-    @Query("insert into Person (email, name, bio) values (:email, :name, :bio)")
+    @Query("insert into person (email, name, bio) values (:email, :name, :bio)")
     Integer saveNewPerson(@Param("email") String email, @Param("name") String name, @Param("bio") String bio);
+
+
+
+    //Circle related quieries:
+
+    //add Person to circle
+    @Modifying
+    @Query("insert into circle_member (person_email, circle_id) values (:email, :id)")
+    Integer addMemberToCircle(@Param("email") String email, @Param("id") Integer id);
+
+    //find all Circles from a Person
+    @Query("select circle_id from circle_member where person_email = :email")
+    Collection<Integer> findCirclesByPerson(@Param("email") String email);
+
 
 
 }

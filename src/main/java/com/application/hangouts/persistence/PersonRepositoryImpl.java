@@ -1,5 +1,6 @@
 package com.application.hangouts.persistence;
 
+import com.application.hangouts.logic.domain.model.Circle;
 import com.application.hangouts.persistence.dto.PersonDto;
 import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.persistence.spring.data.SpringDataPersonRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
@@ -39,6 +41,14 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public void deleteByEmail(String email) {
         springDataPersonRepository.deleteByEmail(email);
+    }
+
+    public Set<Integer> findCirclesByPerson(String email) {
+        return springDataPersonRepository.findCirclesByPerson(email).stream().collect(Collectors.toSet());
+    }
+
+    public void addMemberToCircle(Integer id, String email){
+        springDataPersonRepository.addMemberToCircle(email, id);
     }
 
 

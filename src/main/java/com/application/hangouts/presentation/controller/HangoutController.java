@@ -13,14 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class HangoutController {
 
-    //http://localhost:8080/hangouts
-    @GetMapping("/hangouts")
-    @ResponseStatus(HttpStatus.OK)
-    public String getUpcomingHangouts () {
-        return "hangout/scheduled-hangouts";
-    }
-
-
     @GetMapping("/create-hangout")
     @ResponseStatus(HttpStatus.OK)
     public String getCreateHangouts () {

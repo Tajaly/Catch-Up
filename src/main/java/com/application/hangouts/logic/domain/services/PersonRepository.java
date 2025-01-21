@@ -15,4 +15,6 @@ public interface PersonRepository {
 
     List<Person> findAll();
 
+    void addMemberToCircle(Integer id, String email);
+
 }

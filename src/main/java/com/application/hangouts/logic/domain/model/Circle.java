@@ -17,19 +17,17 @@ public class Circle {
     //email
     private String organizer;
 
-    private Set<Person> groupMembers = new HashSet<>();
+    //private Set<Person> groupMembers = new HashSet<>();
 
-    public Circle(Integer id, String name, String organizer, Set<Person> groupMembers) {
+    public Circle(Integer id, String name, String organizer) {
         this.id = id;
         this.name = name;
         this.organizer = organizer;
-        this.groupMembers = groupMembers;
     }
 
-    public Circle(String name, String organizer, Set<Person> groupMembers) {
+    public Circle(String name, String organizer) {
         this.name = name;
         this.organizer = organizer;
-        this.groupMembers = groupMembers;
     }
 
     public Integer getId() {
@@ -56,16 +54,8 @@ public class Circle {
         this.name = name;
     }
 
-    public Set<Person> getGroupMembers() {
-        return groupMembers;
-    }
-
-    public void setGroupMembers(Set<Person> groupMembers) {
-        this.groupMembers = groupMembers;
-    }
-
     @Override
     public String toString(){
-        return "Circle: " + this.id + " " +this.name + " " + this.organizer + " " + this.groupMembers;
+        return "Circle: " + this.id + " " +this.name + " " + this.organizer ;
     }
 }

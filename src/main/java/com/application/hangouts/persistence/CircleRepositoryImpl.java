@@ -41,9 +41,7 @@ public class CircleRepositoryImpl  implements CircleRepository {
     }
 
     private Circle toCircle(CircleDto circleDto) {
-        Set<Person> circleMember = new HashSet<>();
-        //TODO get member
-        return new Circle(circleDto.id(), circleDto.name(), circleDto.organizer(), circleMember);
+        return new Circle(circleDto.id(), circleDto.name(), circleDto.organizer());
     }
 
     public Circle findById(Integer id) {
