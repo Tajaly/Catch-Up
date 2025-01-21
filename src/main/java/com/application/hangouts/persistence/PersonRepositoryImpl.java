@@ -32,7 +32,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public Integer saveNewPerson(Person person) {
         PersonDto personDto = toPersonDto(person);
-        springDataPersonRepository.saveNewPerson(personDto.getEmail(), personDto.getName(), personDto.getBio());
+        springDataPersonRepository.saveNewPerson(personDto.email(), personDto.name(), personDto.bio());
         return 1;
     }
 
@@ -48,6 +48,6 @@ public class PersonRepositoryImpl implements PersonRepository {
     }
 
     private Person toPerson (PersonDto personDto) {
-        return new Person(personDto.getEmail(), personDto.getName(), personDto.getBio());
+        return new Person(personDto.email(), personDto.name(), personDto.bio());
     }
 }

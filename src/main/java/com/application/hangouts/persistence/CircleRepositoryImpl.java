@@ -1,13 +1,14 @@
 package com.application.hangouts.persistence;
 
 import com.application.hangouts.logic.domain.model.Circle;
+import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.logic.domain.services.CircleRepository;
 import com.application.hangouts.persistence.dto.CircleDto;
 import com.application.hangouts.persistence.spring.data.SpringDataCircleRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -19,10 +20,37 @@ public class CircleRepositoryImpl  implements CircleRepository {
         this.springDataCircleRepository = springDataCircleRepository;
     }
 
-    //@Override
-    public CircleDto save(CircleDto circle) {
-        return springDataCircleRepository.save(circle);
+    @Override
+    public Circle save(Circle circle) {
+        return toCircle(springDataCircleRepository.save(toCircleDto(circle)));
     }
+
+    @Override
+    public void deleteCircle(Circle circle){
+        springDataCircleRepository.deleteById(circle.getId());
+    }
+
+
+
+    Set<Circle> findByOrganizer(String organizer) {
+        return springDataCircleRepository.findByOrganizer(organizer).stream().map(this::toCircle).collect(Collectors.toSet());
+    }
+
+    private CircleDto toCircleDto(Circle circle) {
+        return new CircleDto(null, circle.getName(), circle.getOrganizer());
+    }
+
+    private Circle toCircle(CircleDto circleDto) {
+        Set<Person> circleMember = new HashSet<>();
+        //TODO get member
+        return new Circle(circleDto.id(), circleDto.name(), circleDto.organizer(), circleMember);
+    }
+
+    public Circle findById(Integer id) {
+        return toCircle(springDataCircleRepository.findById(id).orElseThrow());
+    }
+
+
 
    // Set<Circle> circle = new HashSet<>();
     /*
@@ -35,10 +63,7 @@ public class CircleRepositoryImpl  implements CircleRepository {
         return circle.stream().filter(c -> c.getId() == id).findFirst();
     }
 
-    @Override
-    public synchronized Circle save(Circle circle) {
-        return circle;
-    }
+
 
      */
 }

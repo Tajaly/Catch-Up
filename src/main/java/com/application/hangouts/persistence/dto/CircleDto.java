@@ -5,5 +5,5 @@ import org.springframework.data.relational.core.mapping.Table;
 
 
 @Table("circle")
-public record CircleDto( @Id String name) {
+public record CircleDto(@Id Integer id, String name, String organizer) {
 }

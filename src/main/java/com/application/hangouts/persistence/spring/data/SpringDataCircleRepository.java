@@ -12,16 +12,17 @@ public interface SpringDataCircleRepository extends CrudRepository<CircleDto, In
     @Override
     Collection<CircleDto> findAll();
 
-    CircleDto findByName(String name);
+    Collection<CircleDto> findByOrganizer(String organizer);
 
     @Override
     CircleDto save(CircleDto circle);
-/*
+
+
     Optional<CircleDto> findById(Integer id);
 
-    List<CircleDto> findByName(String name);
+    //List<CircleDto> findByName(String name);
 
 
 
- */
+
 }

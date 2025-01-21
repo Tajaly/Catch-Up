@@ -1,6 +1,8 @@
  create table circle
 (
-    name varchar(50) primary key
+    id serial primary key,
+    name varchar(50),
+    organizer varchar(70)
 );
 
 

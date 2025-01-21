@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Hangout {
 
-    private long id;
+    private Integer id;
 
     private LocalDateTime start;
 

@@ -2,13 +2,13 @@ package com.application.hangouts.persistence.dto;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-/*
+
 @Table("person")
 public record PersonDto (@Id String email, String name, String bio) {}
 
- */
 
 
+/*
 @Table("person")
 public class PersonDto {
     @Id
@@ -48,4 +48,8 @@ public class PersonDto {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
+
 }
+
+ */

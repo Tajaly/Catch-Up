@@ -1,8 +1,8 @@
 package com.application.hangouts.persistence;
 
+import com.application.hangouts.logic.domain.model.Circle;
 import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.logic.domain.services.CircleRepository;
-import com.application.hangouts.persistence.dto.CircleDto;
 import com.application.hangouts.persistence.spring.data.SpringDataCircleRepository;
 import com.application.hangouts.persistence.spring.data.SpringDataPersonRepository;
 import com.application.hangouts.logic.domain.services.PersonRepository;
@@ -15,7 +15,9 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -93,19 +95,17 @@ public class DatabaseTest {
     }
 
 
-    //TODO refractor
     @Test
-    @DisplayName("String als PK")
+    @DisplayName("Circle können gespeichert und geladen werden")
     void test4() throws Exception {
-        CircleDto circleDto = new CircleDto("kreis");
-        CircleDto saved = circleRepository.save(circleDto);
+        Set<Person> members = new HashSet<>();
+        Circle circle = new Circle("Handball", "abc@abc.abc", members );
+        Circle saved = circleRepository.save(circle);
+        assertThat(saved).isNotNull();
+        System.out.println("\n \n \n \n" + saved + "\n\n\n\n");
 
-
-
-        //personRepository.deleteByName("taja");
-        //assertThat(personRepository.findAll()).isEmpty();
-        //  System.out.println("\n \n \n \n" + personRepository.findAll() + "\n\n\n\n");
-
+        Circle dbCircle = circleRepository.findById(saved.getId());
+        assertThat(dbCircle).isNotNull();
     }
 
 
