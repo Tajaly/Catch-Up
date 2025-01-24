@@ -18,7 +18,7 @@ public class HomeController {
     @GetMapping("/circles")
     @ResponseStatus(HttpStatus.OK)
     public String getCirclesOverview () {
-        return "circle/circles";
+        return "circle/my-circles";
     }
 
     //http://localhost:8080/hangouts

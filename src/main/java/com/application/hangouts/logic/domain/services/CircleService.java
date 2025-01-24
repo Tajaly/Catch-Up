@@ -14,9 +14,9 @@ public class CircleService {
         this.circleRepository = circleRepository;
     }
 
-    public Integer createCircle(String name, String email) {
+    public Circle createCircle(String name, String email) {
         Circle circle = new Circle(name, email);
-        return circleRepository.save(circle).getId();
+        return circleRepository.save(circle);
     }
 
 

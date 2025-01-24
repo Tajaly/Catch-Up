@@ -21,6 +21,10 @@ public class PersonService {
         personRepository.addMemberToCircle(id, email);
     }
 
+    public void saveNewPerson(Person person) {
+        personRepository.saveNewPerson(person);
+    }
+
     /*
     public Optional<Person> findPersonByEmail(String email) {
         return personRepository.findPersonByEmail(email);
