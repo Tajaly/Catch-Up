@@ -3,13 +3,13 @@ package com.application.hangouts.logic;
 import com.application.hangouts.logic.domain.model.Circle;
 import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.logic.domain.services.CircleRepository;
-import com.application.hangouts.logic.domain.services.CircleService;
 import com.application.hangouts.logic.domain.services.PersonRepository;
-import com.application.hangouts.logic.domain.services.PersonService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicationService {
@@ -32,6 +32,25 @@ public class ApplicationService {
         personRepository.addMemberToCircle(circle.getId(), username);
 
         return circle;
+    }
+
+    public String getUsernameByOauth(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        return oAuth2AuthenticationToken.getPrincipal().getAttribute("login");
+    }
+
+    public Optional<Person> getPersonByOauth(OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        return personRepository.findPersonByUsername(getUsernameByOauth(oAuth2AuthenticationToken));
+    }
+
+
+    public boolean isPersonCircleMember(OAuth2AuthenticationToken oAuth2AuthenticationToken, Integer circleId) {
+        String username = getUsernameByOauth(oAuth2AuthenticationToken);
+        Set<Integer> set = personRepository.findCircleIdsByPerson(username);
+        return set.contains(circleId);
+    }
+
+    public Set<Circle> findCirclesByPerson (String username) {
+        return personRepository.findCircleIdsByPerson(username).stream().map(circleRepository ::findById).collect(Collectors.toSet());
     }
 
     /*

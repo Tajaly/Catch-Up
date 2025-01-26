@@ -5,7 +5,15 @@
     <title>Overview of the Circles</title>
 </head>
 <body>
-    list circles
+<br><br><br><br><br><br>
+
+    <li th:each="circle : ${circles}">
+        <a th:href="@{/circle/{name}(name=${circle.name})}" class="button"> <span th:text="${circle.name}"> </span>  </a>
+    </li>
+
+
+    <br><br><br><br><br><br>
+
 
     <a href="/circles/create-circle" class="button">create circle</a>
 </body>

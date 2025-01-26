@@ -5,11 +5,11 @@ import com.application.hangouts.persistence.dto.PersonDto;
 import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.persistence.spring.data.SpringDataPersonRepository;
 import com.application.hangouts.logic.domain.services.PersonRepository;
+import org.springframework.data.relational.core.sql.In;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -40,13 +40,18 @@ public class PersonRepositoryImpl implements PersonRepository {
         springDataPersonRepository.deleteByUsername(username);
     }
 
-    public Set<Integer> findCirclesByPerson(String username) {
-        return springDataPersonRepository.findCirclesByPerson(username).stream().collect(Collectors.toSet());
-    }
 
     public void addMemberToCircle(Integer id, String username){
         springDataPersonRepository.addMemberToCircle(username, id);
     }
+
+    public Set<Integer> findCircleIdsByPerson(String username) {
+        Set<Integer> set = new HashSet<>();
+        set.addAll(springDataPersonRepository.findCirclesByPerson(username));
+       return set;
+    }
+
+
 
 
     // Dto to domain
@@ -57,4 +62,6 @@ public class PersonRepositoryImpl implements PersonRepository {
     private Person toPerson (PersonDto personDto) {
         return new Person(personDto.username(), personDto.name(), personDto.bio());
     }
+
+
 }

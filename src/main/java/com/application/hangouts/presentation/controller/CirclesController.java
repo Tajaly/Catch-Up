@@ -2,23 +2,18 @@ package com.application.hangouts.presentation.controller;
 
 import com.application.hangouts.logic.ApplicationService;
 import com.application.hangouts.logic.domain.model.Circle;
-import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.logic.domain.services.CircleRepository;
-import com.application.hangouts.logic.domain.services.CircleService;
 import com.application.hangouts.logic.domain.services.PersonRepository;
-import com.application.hangouts.logic.domain.services.PersonService;
 import com.application.hangouts.presentation.from.CircleForm;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class CirclesController {
@@ -41,8 +36,7 @@ public class CirclesController {
 
     @GetMapping("/circles/create-circle")
     @ResponseStatus(HttpStatus.OK)
-    public String getCreateCircle (Model model, CircleForm circleForm, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        System.out.println(oAuth2AuthenticationToken.getPrincipal());
+    public String getCreateCircle (Model model, CircleForm circleForm) {
 
 
 
@@ -55,7 +49,7 @@ public class CirclesController {
 
     @PostMapping("/circles/create-circle")
     public String createCircle(@Valid CircleForm circleForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        String username = oAuth2AuthenticationToken.getPrincipal().getAttribute("login");
+        String username = applicationService.getUsernameByOauth(oAuth2AuthenticationToken);
         model.addAttribute("circleForm", circleForm);
 
         if (bindingResult.hasErrors()) {
@@ -73,14 +67,18 @@ public class CirclesController {
     }
 
 
-    //todo prüfen ob dieser user berechtigung hat diesen circle zu sehen
     @GetMapping("/circle/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public String getCircleOverview (Model model,Integer id, String name) {
-       // check(user, circleid)
+    public String getCircleOverview (Model model,Integer id, String name, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+
+    if (applicationService.isPersonCircleMember(oAuth2AuthenticationToken, id)) {
         Circle circle = circleRepository.findById(id);
         model.addAttribute("name", circle.getName());
         return "/circle/circle";
+    }
+
+    return "redirect:/";
+
     }
 
 }
