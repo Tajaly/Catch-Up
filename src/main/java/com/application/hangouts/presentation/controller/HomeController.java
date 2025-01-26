@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -46,11 +47,29 @@ public class HomeController {
             return "user/create-user";
             //personRepository.saveNewPerson(new Person(username, username));
         };
+        model.addAttribute("username", username);
         return "index";
     }
 
+    @GetMapping("/profile/{username}")
+    public String getProfile (Model model, @PathVariable String username, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        /*
+        if (applicationService.isUserProfileOwner(oAuth2AuthenticationToken, username)) {
+        //TODO Einstellungen
+        }
+
+         */
+        System.out.println(username);
+
+        Person person = personRepository.findPersonByUsername(username).get();
+        model.addAttribute("person", person);
+
+        return "/user/user";
+
+    }
+
     @PostMapping("/create-user")
-    public String createCircle(@Valid PersonForm personForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+    public String createUser(@Valid PersonForm personForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         //String username = applicationService.getUsernameByOauth(oAuth2AuthenticationToken);
         model.addAttribute("personForm", personForm);
 

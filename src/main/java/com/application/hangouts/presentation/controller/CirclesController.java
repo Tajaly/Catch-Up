@@ -66,11 +66,11 @@ public class CirclesController {
 
     @GetMapping("/circle/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public String getCircleOverview (Model model,Integer id, String name, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+    public String getCircleOverview (Model model,Integer id, @PathVariable String name, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
 
     if (applicationService.isPersonCircleMember(oAuth2AuthenticationToken, id)) {
         Circle circle = circleRepository.findById(id);
-        model.addAttribute("name", circle.getName());
+        model.addAttribute("name", name);
         return "/circle/circle";
     }
 
