@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("person")
-public record PersonDto (@Id String email, String name, String bio) {}
+public record PersonDto (@Id String username, String name, String bio) {}
 
 
 
@@ -12,25 +12,25 @@ public record PersonDto (@Id String email, String name, String bio) {}
 @Table("person")
 public class PersonDto {
     @Id
-    private String email;
+    private String username;
     private String name;
     private String bio;
 
     // Constructors, getters, and setters
-    public PersonDto(String email, String name, String bio) {
-        this.email = email;
+    public PersonDto(String username, String name, String bio) {
+        this.username = username;
         this.name = name;
         this.bio = bio;
     }
 
     // Getters and setters
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {

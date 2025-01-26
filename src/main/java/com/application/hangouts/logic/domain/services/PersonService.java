@@ -17,8 +17,8 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public void addMemberToCircle(Integer id, String email){
-        personRepository.addMemberToCircle(id, email);
+    public void addMemberToCircle(Integer id, String username){
+        personRepository.addMemberToCircle(id, username);
     }
 
     public void saveNewPerson(Person person) {
@@ -26,8 +26,8 @@ public class PersonService {
     }
 
     /*
-    public Optional<Person> findPersonByEmail(String email) {
-        return personRepository.findPersonByEmail(email);
+    public Optional<Person> findPersonByUsername(String username) {
+        return personRepository.findPersonByUsername(username);
     };
 
      */

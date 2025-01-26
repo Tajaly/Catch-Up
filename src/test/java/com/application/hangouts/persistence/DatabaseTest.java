@@ -15,9 +15,7 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -54,10 +52,10 @@ public class DatabaseTest {
         Person person = new Person("taja@hotmail.de", "taja", "hallo");
         Integer n = personRepository.saveNewPerson(person);
 
-        Person dbPerson = personRepository.findPersonByEmail(person.getEmail()).orElseThrow();
+        Person dbPerson = personRepository.findPersonByUsername(person.getUsername()).orElseThrow();
        // System.out.println("\n \n \n \n" + dbPerson + "\n\n\n\n");
         assertThat(dbPerson).isNotNull();
-        assertThat(dbPerson.getEmail()).isEqualTo(person.getEmail());
+        assertThat(dbPerson.getUsername()).isEqualTo(person.getUsername());
 
 
 
@@ -85,10 +83,10 @@ public class DatabaseTest {
     void test3() throws Exception {
         Person person = new Person("taja@hotmail.de", "taja", "hallo");
         Integer n = personRepository.saveNewPerson(person);
-        Person dbPerson = personRepository.findPersonByEmail(person.getEmail()).orElseThrow();
+        Person dbPerson = personRepository.findPersonByUsername(person.getUsername()).orElseThrow();
 
 
-        personRepository.deleteByEmail("taja@hotmail.de");
+        personRepository.deleteByUsername("taja@hotmail.de");
         assertThat(personRepository.findAll()).isEmpty();
       //  System.out.println("\n \n \n \n" + personRepository.findAll() + "\n\n\n\n");
 

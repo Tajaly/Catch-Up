@@ -11,6 +11,7 @@ import com.application.hangouts.presentation.from.CircleForm;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,9 +29,6 @@ public class CirclesController {
 
     private final ApplicationService applicationService;
 
-    //todo add user data and rm testperson
-    //it is needed bc the person must exist to create a new circle
-    private final static Person testPerson = new Person("testemail@test.de", "Isa");
 
     public CirclesController(CircleRepository circleRepository, PersonRepository personRepository, ApplicationService applicationService) {
         this.circleRepository = circleRepository;
@@ -43,9 +41,9 @@ public class CirclesController {
 
     @GetMapping("/circles/create-circle")
     @ResponseStatus(HttpStatus.OK)
-    public String getCreateCircle (Model model, CircleForm circleForm) {
-        //todo rm later
-       // personService.saveNewPerson(testPerson);
+    public String getCreateCircle (Model model, CircleForm circleForm, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        System.out.println(oAuth2AuthenticationToken.getPrincipal());
+
 
 
         model.addAttribute(circleForm);
@@ -56,33 +54,32 @@ public class CirclesController {
 
 
     @PostMapping("/circles/create-circle")
-    public String createCircle(@Valid CircleForm circleForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    public String createCircle(@Valid CircleForm circleForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        String username = oAuth2AuthenticationToken.getPrincipal().getAttribute("login");
         model.addAttribute("circleForm", circleForm);
 
         if (bindingResult.hasErrors()) {
 
             return "/circle/create-circle";
         }
-        //TODO add email of the creator
-        Circle circle = applicationService.createCircle("testemail@test.de", circleForm.getName());
+
+        Circle circle = applicationService.createCircle(username, circleForm.getName());
 
 
-        //TODO Circle Overview Seite erstellen und dahin redirecten
-        redirectAttributes.addFlashAttribute("id", circle.getId());
-        String url = "redirect:/circle/" + circleForm.getName() ;
-        return url;
+
+        redirectAttributes.addAttribute("id", circle.getId());
+        return  "redirect:/circle/" + circleForm.getName() ;
 
     }
 
 
-
-    //circle aus der db holen und anzeigen
     //todo prüfen ob dieser user berechtigung hat diesen circle zu sehen
     @GetMapping("/circle/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public String getCircleOverview (Model model,Integer id, @PathVariable("name") String name) {
-
-        model.addAttribute("name", name);
+    public String getCircleOverview (Model model,Integer id, String name) {
+       // check(user, circleid)
+        Circle circle = circleRepository.findById(id);
+        model.addAttribute("name", circle.getName());
         return "/circle/circle";
     }
 

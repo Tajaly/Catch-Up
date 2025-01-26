@@ -14,7 +14,7 @@ public class Circle {
 
     private String name;
 
-    //email
+    //username
     private String organizer;
 
     //private Set<Person> groupMembers = new HashSet<>();

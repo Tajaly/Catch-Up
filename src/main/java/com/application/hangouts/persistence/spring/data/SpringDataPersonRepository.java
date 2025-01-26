@@ -22,19 +22,19 @@ public interface SpringDataPersonRepository extends CrudRepository<PersonDto, St
 
 
     //custom derived queries
-    Optional<PersonDto> findPersonByEmail(String email);
+    Optional<PersonDto> findPersonByUsername(String username);
 
    // List<PersonDto> deleteByName(String name);
 
 
     //custom queries
     @Modifying
-    @Query("delete from person where person.email = :email")
-    void deleteByEmail(@Param("email") String email);
+    @Query("delete from person where person.username = :username")
+    void deleteByUsername(@Param("username") String username);
 
     @Modifying
-    @Query("insert into person (email, name, bio) values (:email, :name, :bio)")
-    Integer saveNewPerson(@Param("email") String email, @Param("name") String name, @Param("bio") String bio);
+    @Query("insert into person (username, name, bio) values (:username, :name, :bio)")
+    Integer saveNewPerson(@Param("username") String username, @Param("name") String name, @Param("bio") String bio);
 
 
 
@@ -42,12 +42,12 @@ public interface SpringDataPersonRepository extends CrudRepository<PersonDto, St
 
     //add Person to circle
     @Modifying
-    @Query("insert into circle_member (person_email, circle_id) values (:email, :id)")
-    Integer addMemberToCircle(@Param("email") String email, @Param("id") Integer id);
+    @Query("insert into circle_member (person_username, circle_id) values (:username, :id)")
+    Integer addMemberToCircle(@Param("username") String username, @Param("id") Integer id);
 
     //find all Circles from a Person
-    @Query("select circle_id from circle_member where person_email = :email")
-    Collection<Integer> findCirclesByPerson(@Param("email") String email);
+    @Query("select circle_id from circle_member where person_username = :username")
+    Collection<Integer> findCirclesByPerson(@Param("username") String username);
 
 
 

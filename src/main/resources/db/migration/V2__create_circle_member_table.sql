@@ -1,6 +1,6 @@
 create table circle_member
 (
-    person_email varchar(70) references person (email),
+    person_username varchar(70) references person (username),
     circle_id integer references circle (id),
-    primary key (person_email, circle_id)
+    primary key (person_username, circle_id)
 );

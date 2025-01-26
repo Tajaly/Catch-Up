@@ -8,30 +8,30 @@ import org.springframework.data.relational.core.mapping.Column;
 
 public class Person {
 
-    private String email;
+    private String username;
 
     private String name;
 
     private String bio;
 
-    public Person(String email, String name, String bio) {
-        this.email = email;
+    public Person(String username, String name, String bio) {
+        this.username = username;
         this.name = name;
         this.bio = bio;
     }
 
-    public Person(String email, String name) {
-        this.email = email;
+    public Person(String username, String name) {
+        this.username = username;
         this.name = name;
         this.bio = null;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getBio() {
@@ -50,7 +50,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person: " + this.name + " email:" + this.email + " bio: " +this.bio;
+        return "Person: " + this.name + " username:" + this.username + " bio: " +this.bio;
     }
 
 }

@@ -25,11 +25,11 @@ public class ApplicationService {
         this.personRepository = personRepository;
     }
 
-    public Circle createCircle(String email, String name) {
+    public Circle createCircle(String username, String name) {
 
-        Circle circle = circleRepository.save(new Circle(name, email));
+        Circle circle = circleRepository.save(new Circle(name, username));
 
-        personRepository.addMemberToCircle(circle.getId(), email);
+        personRepository.addMemberToCircle(circle.getId(), username);
 
         return circle;
     }

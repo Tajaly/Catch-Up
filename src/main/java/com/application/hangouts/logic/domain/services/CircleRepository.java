@@ -21,7 +21,7 @@ public interface CircleRepository {
     //List<Circle> getAllCirclesFromPerson(Integer personId);
 
     /*
-    Circle findCircleByEmail(String email);
+    Circle findCircleByUsername(String username);
 
      */
 

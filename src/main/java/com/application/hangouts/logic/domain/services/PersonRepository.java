@@ -7,14 +7,14 @@ import java.util.Optional;
 
 
 public interface PersonRepository {
-    Optional<Person> findPersonByEmail(String email);
+    Optional<Person> findPersonByUsername(String username);
     //Person save(Person person);
 
     Integer saveNewPerson(Person person);
-    void deleteByEmail(String email);
+    void deleteByUsername(String username);
 
     List<Person> findAll();
 
-    void addMemberToCircle(Integer id, String email);
+    void addMemberToCircle(Integer id, String username);
 
 }
