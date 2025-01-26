@@ -59,13 +59,10 @@ public class CirclesController {
 
         Circle circle = applicationService.createCircle(username, circleForm.getName());
 
-
-
         redirectAttributes.addAttribute("id", circle.getId());
         return  "redirect:/circle/" + circleForm.getName() ;
 
     }
-
 
     @GetMapping("/circle/{name}")
     @ResponseStatus(HttpStatus.OK)

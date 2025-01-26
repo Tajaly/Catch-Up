@@ -5,10 +5,10 @@
     <title>Overview of the Circles</title>
 </head>
 <body>
-<br><br><br><br><br><br>
+    <br><br><br><br><br><br>
 
     <li th:each="circle : ${circles}">
-        <a th:href="@{/circle/{name}(name=${circle.name})}" class="button"> <span th:text="${circle.name}"> </span>  </a>
+        <a th:href="@{/circle/{name}(name=${circle.name}, id=${circle.id})}" class="button"> <span th:text="${circle.name}"> </span>  </a>
     </li>
 
 

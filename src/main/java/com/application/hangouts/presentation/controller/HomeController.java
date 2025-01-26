@@ -4,12 +4,18 @@ import com.application.hangouts.logic.ApplicationService;
 import com.application.hangouts.logic.domain.model.Circle;
 import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.logic.domain.services.PersonRepository;
+import com.application.hangouts.presentation.from.CircleForm;
+import com.application.hangouts.presentation.from.PersonForm;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 import java.util.Set;
@@ -26,17 +32,37 @@ public class HomeController {
         this.applicationService = applicationService;
     }
 
-//TODO name und bio hinzufügen
+//TODO profilseite
+//TODO navbar
+
 
     @GetMapping("/")
-    public String getHome (    OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+    public String getHome (Model model, PersonForm personForm,   OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         String username = oAuth2AuthenticationToken.getPrincipal().getAttribute("login");
        // System.out.println(oAuth2AuthenticationToken);
         Optional<Person> person = personRepository.findPersonByUsername(username);
         if(person.isEmpty()) {
-            personRepository.saveNewPerson(new Person(username, username));
+            model.addAttribute("personForm", personForm);
+            return "user/create-user";
+            //personRepository.saveNewPerson(new Person(username, username));
         };
         return "index";
+    }
+
+    @PostMapping("/create-user")
+    public String createCircle(@Valid PersonForm personForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        //String username = applicationService.getUsernameByOauth(oAuth2AuthenticationToken);
+        model.addAttribute("personForm", personForm);
+
+        if (bindingResult.hasErrors()) {
+            return "user/create-user";
+        }
+
+        applicationService.createUser(personForm, oAuth2AuthenticationToken);
+
+
+        return  "redirect:/" ;
+
     }
 
 

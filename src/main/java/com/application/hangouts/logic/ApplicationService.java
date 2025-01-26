@@ -4,6 +4,7 @@ import com.application.hangouts.logic.domain.model.Circle;
 import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.logic.domain.services.CircleRepository;
 import com.application.hangouts.logic.domain.services.PersonRepository;
+import com.application.hangouts.presentation.from.PersonForm;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,16 @@ public class ApplicationService {
 
     public Set<Circle> findCirclesByPerson (String username) {
         return personRepository.findCircleIdsByPerson(username).stream().map(circleRepository ::findById).collect(Collectors.toSet());
+    }
+
+    public Person createUser (PersonForm personForm, OAuth2AuthenticationToken auth) {
+        String username = getUsernameByOauth(auth);
+        Person person = new Person(username, personForm.getName());
+        if (!personForm.getBio().isBlank()) {
+            person.setBio(personForm.getBio());
+        }
+         personRepository.saveNewPerson(person);
+         return person;
     }
 
     /*
