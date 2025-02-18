@@ -1,9 +1,12 @@
 package com.application.hangouts.logic;
 
 import com.application.hangouts.logic.domain.model.Circle;
+import com.application.hangouts.logic.domain.model.Hangout;
 import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.logic.domain.services.CircleRepository;
+import com.application.hangouts.logic.domain.services.HangoutRepository;
 import com.application.hangouts.logic.domain.services.PersonRepository;
+import com.application.hangouts.presentation.from.HangoutForm;
 import com.application.hangouts.presentation.from.PersonForm;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -21,9 +24,12 @@ public class ApplicationService {
 
     private PersonRepository personRepository;
 
-    public ApplicationService(CircleRepository circleRepository, PersonRepository personRepository) {
+    private HangoutRepository hangoutRepository;
+
+    public ApplicationService(CircleRepository circleRepository, PersonRepository personRepository, HangoutRepository hangoutRepository) {
         this.circleRepository = circleRepository;
         this.personRepository = personRepository;
+        this.hangoutRepository = hangoutRepository;
     }
 
     public Circle createCircle(String username, String name) {
@@ -62,6 +68,12 @@ public class ApplicationService {
         }
          personRepository.saveNewPerson(person);
          return person;
+    }
+
+    public Hangout createHangout(HangoutForm hangoutForm, OAuth2AuthenticationToken auth) {
+        String username = getUsernameByOauth(auth);
+        Hangout saveHangout = new Hangout(hangoutForm.getName(), hangoutForm.getDescription(), username, hangoutForm.getCircle(), hangoutForm.getStart(), hangoutForm.getEnd());
+        return hangoutRepository.save(saveHangout);
     }
 
     /*

@@ -4,7 +4,6 @@ import com.application.hangouts.logic.ApplicationService;
 import com.application.hangouts.logic.domain.model.Circle;
 import com.application.hangouts.logic.domain.model.Person;
 import com.application.hangouts.logic.domain.services.PersonRepository;
-import com.application.hangouts.presentation.from.CircleForm;
 import com.application.hangouts.presentation.from.PersonForm;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,6 @@ public class HomeController {
         this.applicationService = applicationService;
     }
 
-//TODO profilseite
 //TODO navbar
 
 
@@ -51,11 +49,14 @@ public class HomeController {
         return "index";
     }
 
+    //TODO (mid) profile anderer besuchen
     @GetMapping("/profile/{username}")
-    public String getProfile (Model model, @PathVariable String username, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+    public String getProfile (Model model, @PathVariable String username,
+                              OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         /*
         if (applicationService.isUserProfileOwner(oAuth2AuthenticationToken, username)) {
-        //TODO Einstellungen
+        //TODO: (low prio) angaben editieren funktion
+
         }
 
          */
@@ -69,8 +70,8 @@ public class HomeController {
     }
 
     @PostMapping("/create-user")
-    public String createUser(@Valid PersonForm personForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        //String username = applicationService.getUsernameByOauth(oAuth2AuthenticationToken);
+    public String createUser(@Valid PersonForm personForm, BindingResult bindingResult, Model model,
+                             RedirectAttributes redirectAttributes, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
         model.addAttribute("personForm", personForm);
 
         if (bindingResult.hasErrors()) {

@@ -5,12 +5,35 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/create-hangout" method="post">
-    <label for="title_id">Title</label>
-    <input type="text" name="title" id="title_id">
+<form action="hangouts/create-hangout" th:object="${hangoutForm}" method="post">
+    <label for="name_id">Title</label>
+    <input type="text" class="form-control" placeholder="add a title" id="name_id" th:field="*{name}" >
+    <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
+
+    <br><br>
+    <label for="circle_id">Circle</label>
+
+    <select th:field="*{circle}" id="circle_id">
+        <option th:each="circle : ${circles}" th:value="${circle}" th:text="${circle.name}"></option>
+    </select>
+
+    <br><br>
     <label for="description_id">Description</label>
-    <input type="text" name="description" id="description_id">
+    <input type="text" id="description_id" th:field="*{description}">
+
+    <br><br>
+    <label for="start_id">Begins At</label>
+    <input type="datetime-local" id="start_id" th:field="*{start}">
+    <small class="text-danger" th:if="${#fields.hasErrors('start')}" th:errors="*{start}">Start Error</small>
+
+    <br><br>
+    <label for="end_id">Ends At</label>
+    <input type="datetime-local" id="end_id" th:field="*{end}">
+    <!-- TODO ende muss nach dem start sein
+     <small class="text-danger" th:if="${#fields.hasErrors('start')}" th:errors="*{end}">End Error</small> -->
+    <br><br>
     <button type="submit">Create</button>
+
 </form>
 
 </body>
