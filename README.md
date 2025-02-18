@@ -23,7 +23,6 @@ The project is built with a focus on simplicity, expandability, and maintainabil
 ### Tech Stack
 - **Language:** Java
 - **Build Tool:** Gradle
-- **Version Control:** GitHub
 
 ### Quality Assurance
 To ensure functionality and compliance with architectural rules:
