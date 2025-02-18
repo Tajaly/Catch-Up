@@ -1,4 +1,4 @@
-package com.application.hangouts;
+package com.application.catchup;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

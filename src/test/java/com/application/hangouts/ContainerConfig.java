@@ -1,4 +1,4 @@
-package com.application.hangouts;
+package com.application.catchup;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

@@ -1,12 +1,12 @@
-package com.application.hangouts.persistence;
+package com.application.catchup.persistence;
 
-import com.application.hangouts.logic.domain.model.Circle;
-import com.application.hangouts.logic.domain.model.Person;
-import com.application.hangouts.logic.domain.services.CircleRepository;
-import com.application.hangouts.persistence.spring.data.SpringDataCircleRepository;
-import com.application.hangouts.persistence.spring.data.SpringDataPersonRepository;
-import com.application.hangouts.logic.domain.services.PersonRepository;
-import com.application.hangouts.ContainerConfig;
+import com.application.catchup.logic.domain.model.Circle;
+import com.application.catchup.logic.domain.model.Person;
+import com.application.catchup.logic.domain.services.CircleRepository;
+import com.application.catchup.persistence.spring.data.SpringDataCircleRepository;
+import com.application.catchup.persistence.spring.data.SpringDataPersonRepository;
+import com.application.catchup.logic.domain.services.PersonRepository;
+import com.application.catchup.ContainerConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
