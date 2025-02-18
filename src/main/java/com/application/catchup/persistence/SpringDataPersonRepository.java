@@ -1,4 +1,4 @@
-package com.application.catchup.persistence.spring.data;
+package com.application.catchup.persistence;
 
 import com.application.catchup.persistence.dto.PersonDto;
 import org.springframework.data.jdbc.repository.query.Modifying;
@@ -42,11 +42,11 @@ public interface SpringDataPersonRepository extends CrudRepository<PersonDto, St
 
     //add Person to circle
     @Modifying
-    @Query("insert into circle_member (person_username, circle_id) values (:username, :id)")
+    @Query("insert into circle_member (person, circle) values (:username, :id)")
     Integer addMemberToCircle(@Param("username") String username, @Param("id") Integer id);
 
     //find all Circles from a Person
-    @Query("select circle_id from circle_member where person_username = :username")
+    @Query("select circle from circle_member where person = :username")
     Collection<Integer> findCirclesByPerson(@Param("username") String username);
 
 

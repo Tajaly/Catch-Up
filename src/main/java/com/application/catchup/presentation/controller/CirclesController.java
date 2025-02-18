@@ -7,7 +7,6 @@ import com.application.catchup.logic.domain.services.PersonRepository;
 import com.application.catchup.presentation.from.CircleForm;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

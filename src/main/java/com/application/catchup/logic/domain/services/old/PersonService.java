@@ -1,9 +1,8 @@
-package com.application.catchup.logic.domain.services;
+package com.application.catchup.logic.domain.services.old;
 
 import com.application.catchup.logic.domain.model.Person;
+import com.application.catchup.logic.domain.services.PersonRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class PersonService {

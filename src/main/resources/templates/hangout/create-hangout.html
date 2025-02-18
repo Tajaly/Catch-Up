@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Title</title>z
 </head>
 <body>
-<form action="hangouts/create-hangout" th:object="${hangoutForm}" method="post">
+<form action="/hangouts/create-hangout" th:object="${hangoutForm}" method="post">
     <label for="name_id">Title</label>
     <input type="text" class="form-control" placeholder="add a title" id="name_id" th:field="*{name}" >
     <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</small>
@@ -14,7 +14,7 @@
     <label for="circle_id">Circle</label>
 
     <select th:field="*{circle}" id="circle_id">
-        <option th:each="circle : ${circles}" th:value="${circle}" th:text="${circle.name}"></option>
+        <option th:each="circle : ${circles}" th:value="${circle.id}" th:text="${circle.name}"></option>
     </select>
 
     <br><br>

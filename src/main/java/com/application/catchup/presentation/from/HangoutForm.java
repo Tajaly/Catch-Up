@@ -1,5 +1,6 @@
 package com.application.catchup.presentation.from;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class HangoutForm {
 
-    @NotBlank
+    @NotBlank(message = "title required")
     private String name;
     private String description;
 
@@ -16,6 +17,7 @@ public class HangoutForm {
 
 
     //has to be in the future
+    @Future(message = "hangout should start in the future")
     private LocalDateTime start;
 
     //optional has to be after start or null

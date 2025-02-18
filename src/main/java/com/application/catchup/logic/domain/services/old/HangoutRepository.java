@@ -1,4 +1,4 @@
-package com.application.catchup.logic.domain.services;
+package com.application.catchup.logic.domain.services.old;
 
 import com.application.catchup.logic.domain.model.Hangout;
 import com.application.catchup.persistence.dto.HangoutDto;

@@ -4,7 +4,7 @@ import com.application.catchup.logic.ApplicationService;
 import com.application.catchup.logic.domain.model.Circle;
 import com.application.catchup.logic.domain.model.Hangout;
 import com.application.catchup.logic.domain.services.CircleRepository;
-import com.application.catchup.logic.domain.services.HangoutRepository;
+import com.application.catchup.logic.domain.services.old.HangoutRepository;
 import com.application.catchup.presentation.from.HangoutForm;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -59,6 +59,9 @@ public class HangoutController {
 
         redirectAttributes.addAttribute("id", hangout.getId());
 
+
+
+        //TODO id must not be null
         String circleName = circleRepository.findById(hangout.getCircle()).getName();
 
         return "redirect:/hangout/" + circleName + "/" + hangout.getName() ;

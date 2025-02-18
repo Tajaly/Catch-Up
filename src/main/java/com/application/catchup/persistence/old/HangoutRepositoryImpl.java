@@ -1,9 +1,8 @@
-package com.application.catchup.persistence;
+package com.application.catchup.persistence.old;
 
 import com.application.catchup.logic.domain.model.Hangout;
-import com.application.catchup.logic.domain.services.HangoutRepository;
+import com.application.catchup.logic.domain.services.old.HangoutRepository;
 import com.application.catchup.persistence.dto.HangoutDto;
-import com.application.catchup.persistence.spring.data.SpringDataHangoutRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;

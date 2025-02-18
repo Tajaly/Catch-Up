@@ -4,7 +4,7 @@ import com.application.catchup.logic.domain.model.Circle;
 import com.application.catchup.logic.domain.model.Hangout;
 import com.application.catchup.logic.domain.model.Person;
 import com.application.catchup.logic.domain.services.CircleRepository;
-import com.application.catchup.logic.domain.services.HangoutRepository;
+import com.application.catchup.logic.domain.services.old.HangoutRepository;
 import com.application.catchup.logic.domain.services.PersonRepository;
 import com.application.catchup.presentation.from.HangoutForm;
 import com.application.catchup.presentation.from.PersonForm;
@@ -33,11 +33,8 @@ public class ApplicationService {
     }
 
     public Circle createCircle(String username, String name) {
-
         Circle circle = circleRepository.save(new Circle(name, username));
-
         personRepository.addMemberToCircle(circle.getId(), username);
-
         return circle;
     }
 
@@ -60,7 +57,7 @@ public class ApplicationService {
         return personRepository.findCircleIdsByPerson(username).stream().map(circleRepository ::findById).collect(Collectors.toSet());
     }
 
-    public Person createUser (PersonForm personForm, OAuth2AuthenticationToken auth) {
+    public Person createPerson(PersonForm personForm, OAuth2AuthenticationToken auth) {
         String username = getUsernameByOauth(auth);
         Person person = new Person(username, personForm.getName());
         if (!personForm.getBio().isBlank()) {
@@ -72,8 +69,15 @@ public class ApplicationService {
 
     public Hangout createHangout(HangoutForm hangoutForm, OAuth2AuthenticationToken auth) {
         String username = getUsernameByOauth(auth);
-        Hangout saveHangout = new Hangout(hangoutForm.getName(), hangoutForm.getDescription(), username, hangoutForm.getCircle(), hangoutForm.getStart(), hangoutForm.getEnd());
-        return hangoutRepository.save(saveHangout);
+
+        Circle circle = circleRepository.findById(hangoutForm.getCircle());
+        Hangout hangout = new Hangout(hangoutForm.getName(), hangoutForm.getDescription(), username, hangoutForm.getCircle(), hangoutForm.getStart(), hangoutForm.getEnd());
+
+
+        circle.addHangout(hangout);
+        Circle savedCircle = circleRepository.save(circle);
+        personRepository.addMemberToCircle(savedCircle.getId(), username);
+        return circleRepository.getLastAddedHangout(savedCircle.getId());
     }
 
     /*

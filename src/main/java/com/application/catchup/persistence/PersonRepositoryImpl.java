@@ -1,12 +1,8 @@
 package com.application.catchup.persistence;
 
-import com.application.catchup.logic.domain.model.Circle;
 import com.application.catchup.persistence.dto.PersonDto;
 import com.application.catchup.logic.domain.model.Person;
-import com.application.catchup.persistence.spring.data.SpringDataPersonRepository;
 import com.application.catchup.logic.domain.services.PersonRepository;
-import org.springframework.data.relational.core.sql.In;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

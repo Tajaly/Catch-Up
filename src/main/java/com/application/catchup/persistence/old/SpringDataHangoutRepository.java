@@ -1,4 +1,4 @@
-package com.application.catchup.persistence.spring.data;
+package com.application.catchup.persistence.old;
 
 import com.application.catchup.logic.domain.model.Hangout;
 import com.application.catchup.persistence.dto.CircleDto;

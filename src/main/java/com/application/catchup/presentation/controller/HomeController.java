@@ -32,7 +32,7 @@ public class HomeController {
         this.applicationService = applicationService;
     }
 
-//TODO navbar
+//TODO (mid prio) navbar
 
 
     @GetMapping("/")
@@ -49,7 +49,7 @@ public class HomeController {
         return "index";
     }
 
-    //TODO (mid) profile anderer besuchen
+    //TODO (mid prio) profile anderer besuchen
     @GetMapping("/profile/{username}")
     public String getProfile (Model model, @PathVariable String username,
                               OAuth2AuthenticationToken oAuth2AuthenticationToken) {
@@ -78,7 +78,7 @@ public class HomeController {
             return "user/create-user";
         }
 
-        applicationService.createUser(personForm, oAuth2AuthenticationToken);
+        applicationService.createPerson(personForm, oAuth2AuthenticationToken);
 
 
         return  "redirect:/" ;

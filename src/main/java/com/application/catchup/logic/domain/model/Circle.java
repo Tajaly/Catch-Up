@@ -1,5 +1,6 @@
 package com.application.catchup.logic.domain.model;
 
+import com.application.catchup.persistence.dto.PersonDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
 
@@ -17,12 +18,25 @@ public class Circle {
     //username
     private String organizer;
 
-    //private Set<Person> groupMembers = new HashSet<>();
+    private Set<String> member;
 
-    public Circle(Integer id, String name, String organizer) {
+    private List<Hangout> hangouts;
+
+    public void addMember(String person) {
+        member.add(person);
+    }
+
+
+    public void addHangout(Hangout hangout){
+        hangouts.add(hangout);
+    }
+
+    public Circle(Integer id, String name, String organizer, Set<String> member, List<Hangout> hangouts) {
         this.id = id;
         this.name = name;
         this.organizer = organizer;
+        this.member = member;
+        this.hangouts = hangouts;
     }
 
     public Circle(String name, String organizer) {
@@ -52,6 +66,22 @@ public class Circle {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<String> getMember() {
+        return member;
+    }
+
+    public void setMember(Set<String> member) {
+        this.member = member;
+    }
+
+    public List<Hangout> getHangouts() {
+        return hangouts;
+    }
+
+    public void setHangouts(List<Hangout> hangouts) {
+        this.hangouts = hangouts;
     }
 
     @Override
