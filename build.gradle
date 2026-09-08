@@ -28,7 +28,7 @@ dependencies {
 
     //postgres treiber
 //https://mvnrepository.com/artifact/org.postgresql/postgresql
-    runtimeOnly 'org.postgresql:postgresql:42.7.4'
+    runtimeOnly 'org.postgresql:postgresql:42.7.12'
 
 
 
